@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Poppins'; /* Give your font a name */
+  src: url('../public/POPPINS-LIGHT.woff') format('woff'); /* Path to your font file */
+}
+
+body{
+  font-family: "Poppins" , sans-serif;
+}
+::-webkit-scrollbar {
+    width: 0px;
+  }
