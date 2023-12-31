@@ -1,0 +1,20 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "vite.config.js",
+        "use": "@vercel/static-build"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*).(html|js|css)",
+        "dest": "/$1.$2"
+      },
+      {
+        "src": "/",
+        "dest": "/index.html"
+      }
+    ]
+  }
+  
