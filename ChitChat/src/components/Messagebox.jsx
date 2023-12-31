@@ -35,9 +35,7 @@ const Messagebox = () => {
         const json = await response.json()
         setContent("")
         socket.emit("newMessage", json)
-
     }
-
     const fetchAllMessages = async () => {
         const response = await fetch(`http://localhost:5000/message/${chatId}`, {
             method: "GET",
