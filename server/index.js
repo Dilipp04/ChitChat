@@ -16,7 +16,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(express.json());
-app.get("/", (req, res) => {
+app.get("/", (req, res) => { 
   res.send("Get request is sent");
 });
 
@@ -70,6 +70,6 @@ io.on("connection", (socket) => {
   });
 });
 
-httpServer.listen(3000, () => {
+httpServer.listen(PORT, () => {
   console.log("Server is running");
 });
