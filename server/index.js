@@ -9,7 +9,7 @@ var cors = require("cors");
 dotenv.config();
 
 const corsOptions = {
-  origin: "http://chit-chat-wapp.vercel.app",
+  origin: "*",
   methods: "GET,POST,PUT,PATCH,DELETE,HEAD",
   Credential: true,
 };
