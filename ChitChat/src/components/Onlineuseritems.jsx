@@ -23,8 +23,8 @@ const Onlineuseritems = ({ element }) => {
       console.log(json)
       navigate(`/app/chat/${json._id}&${username}`)
     }}>
-      <div className='w-full py-2  rounded-xl bg-lgray flex items-center'>
-        <div className="rounded-full bg-profile text-white h-12 w-12 mr-3 flex-col flex text-center justify-center text-2xl font-semibold">
+      <div className='w-full py-2  rounded-xl bg-lgray active:bg-zinc-200 flex items-center'>
+        <div className="rounded-full bg-profile text-white h-12 w-12 m-3 flex-col flex text-center justify-center text-2xl font-semibold">
           {username[0].toUpperCase()}
         </div>
         <div className="flex-grow ">

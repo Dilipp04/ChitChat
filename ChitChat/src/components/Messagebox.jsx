@@ -22,7 +22,7 @@ const Messagebox = () => {
         setContent(e.target.value)
     }
     const sendMessage = async () => {
-
+        setContent("")
         const response = await fetch(`${URL}/message/`, {
             method: "POST",
             headers: {
@@ -35,7 +35,6 @@ const Messagebox = () => {
             })
         })
         const json = await response.json()
-        setContent("")
         socket.emit("newMessage", json)
     }
     const fetchAllMessages = async () => {
@@ -78,9 +77,8 @@ const Messagebox = () => {
                 <div className="rounded-full bg-profile text-white h-14 w-14 mx-5 flex-col flex text-center justify-center text-2xl font-semibold">
                     {username[0].toUpperCase()}
                 </div>
-                <div className="flex-grow">
-                    <h1 className="text-gray-900 title-font text-lg font-semibold">{username}</h1>
-                    <p className="text-gray-500 text-sm">online</p>
+                <div className="flex-grow my-auto">
+                    <h1 className="text-gray-900  title-font text-xl font-semibold">{username}</h1>
                 </div>
             </header>
             <main className='grow h-80 overflow-y-scroll scroll-smooth p-3 bg-white flex flex-col-reverse'>
@@ -105,7 +103,7 @@ const Messagebox = () => {
                         sendMessage()
                     }
                 }} onChange={inputHandler} value={content} className='mt-3 w-full p-3 text-lg text-gray-900  border-gray-300 rounded-xl bg-lgray ' type="text" placeholder='Type a message' />
-                <div onClick={sendMessage} className='p-3 mt-3 mx-2 rounded-lg bg-rblue '>
+                <div onClick={sendMessage} className='p-3 mt-3 mx-2 rounded-lg bg-rblue active:bg-zinc-200 '>
                     <SendIcon fontSize='medium' />
                 </div>
             </div>
