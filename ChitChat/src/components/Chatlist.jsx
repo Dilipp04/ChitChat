@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Listitem from './Listitem';
 import { useLocation } from 'react-router-dom';
+import useUrl from '../hooks/useUrl';
 
 const Chatlist = () => {
     const userdata = JSON.parse(localStorage.getItem("userData"))
-
+    const URL = useUrl()
     const [chatlist, setChatlist] = useState([])
     const fetchChats = async () => {
-        const response = await fetch(`http://localhost:5000/chat/`, {
+        const response = await fetch(`${URL}/chat/`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${userdata.token}`,

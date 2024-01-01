@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TextField, Button, Backdrop, CircularProgress } from '@mui/material'
+import useUrl from '../hooks/useUrl'
 
 const Login = () => {
+    const URL = useUrl()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState({ username: "", password: "" })
@@ -18,7 +20,7 @@ const Login = () => {
 
     const submitHandler = async () => {
         setLoading(true)
-        const response = await fetch("http://localhost:5000/user/login", {
+        const response = await fetch(`${URL}/user/login`, {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
@@ -37,7 +39,7 @@ const Login = () => {
         <>
             <div className=' flex align-middle items-center justify-center w-screen h-screen '>
 
-                <div className='bg-white w-1/3 h-auto p-8 px-16 rounded-2xl shadow-xl flex flex-col justify-center space-y-5'>
+                <div className='bg-white w-80 h-auto p-6 px-10 rounded-2xl shadow-xl flex flex-col justify-center space-y-5'>
                     <h1 className='text-2xl text-gray text-center'>Login to ChitChat</h1>
                     <TextField onChange={handleChange} type='text' name='username' label="Username" variant="outlined" />
                     <TextField onChange={handleChange} type='password' name='password' label="Password" variant="outlined" />

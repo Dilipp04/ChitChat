@@ -1,14 +1,15 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import useUrl from '../hooks/useUrl'
 
 const Onlineuseritems = ({ element }) => {
   const navigate = useNavigate()
-
+  const URL = useUrl()
   const { username, _id } = element
   const userdata = JSON.parse(localStorage.getItem("userData"))
   return (
     <div onClick={async () => {
-      const response = await fetch(`http://localhost:5000/chat/`, {
+      const response = await fetch(`${URL}/chat/`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${userdata.token}`,

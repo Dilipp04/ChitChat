@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Onlineuseritems from '../components/Onlineuseritems'
+import useUrl from '../hooks/useUrl'
 
 const Onlineusers = () => {
+    const URL = useUrl()
     const [users, setUsers] = useState([])
     const [search, setSearch] = useState("")
     const userdata = JSON.parse(localStorage.getItem("userData"))
     const fetchAllUsers = async (keyword = "") => {
-        const response = await fetch(`http://localhost:5000/user/fetchallusers?search=${keyword}`, {
+        const response = await fetch(`${URL}/user/fetchallusers?search=${keyword}`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${userdata.token}`

@@ -4,14 +4,16 @@ import Messageself from './Messageself';
 import Messageother from './Messageother';
 import { useParams } from 'react-router-dom';
 import { io } from "socket.io-client"
+import useUrl from '../hooks/useUrl';
 
 const Messagebox = () => {
+    const URL = useUrl()
     const [socketConnectionStatus, setSocketConnectionStatus] = useState()
     const [content, setContent] = useState("")
     const [allMessages, setAllMessages] = useState([])
     const [allMessagesCopy, setAllMessagesCopy] = useState([])
     const userdata = JSON.parse(localStorage.getItem("userData"))
-    var socket = io("http://localhost:5000");
+    var socket = io(URL);
 
     const params = useParams()
     const [chatId, username] = params.chatId.split("&")
@@ -21,7 +23,7 @@ const Messagebox = () => {
     }
     const sendMessage = async () => {
 
-        const response = await fetch(`http://localhost:5000/message/`, {
+        const response = await fetch(`${URL}/message/`, {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${userdata.token}`,
@@ -37,7 +39,7 @@ const Messagebox = () => {
         socket.emit("newMessage", json)
     }
     const fetchAllMessages = async () => {
-        const response = await fetch(`http://localhost:5000/message/${chatId}`, {
+        const response = await fetch(`${URL}/message/${chatId}`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${userdata.token}`,

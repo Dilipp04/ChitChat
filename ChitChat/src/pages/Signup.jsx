@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TextField, Button ,Backdrop, CircularProgress} from '@mui/material'
+import useUrl from '../hooks/useUrl'
 
 const Signup = () => {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
-
+    const URL = useUrl()
     const [data, setData] = useState({ username: "", email: "", password: "" })
     const handleChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value })
     }
     const submitHandler = async () => {
         setLoading(true)
-        const response = await fetch("http://localhost:5000/user/register", {
+        const response = await fetch(`${URL}/user/register`, {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
@@ -30,7 +31,7 @@ const Signup = () => {
     return (<>
         <div className=' flex align-middle items-center justify-center w-screen h-screen '>
             
-            <div className='bg-white w-1/3 h-auto p-8 px-16 rounded-2xl shadow-xl flex flex-col justify-center space-y-5 '>
+            <div className='bg-white w-80 h-auto p-6 px-10 rounded-2xl shadow-xl flex flex-col justify-center space-y-5 '>
                 <h1 className='text-2xl text-gray text-center'>Register to ChitChat</h1>
                 <TextField onChange={handleChange} type='text' name='username' label="Username" variant="outlined" />
                 <TextField onChange={handleChange} type='email' name='email' label="Email" variant="outlined" />
