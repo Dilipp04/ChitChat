@@ -13,6 +13,7 @@ const allMessages = async (req, res) => {
     return res.status(400).send("Fetching all messages error");
   }
 };
+
 const sendMessage = async (req, res) => {
   const { content, chatId } = req.body;
   if (!content || !chatId) {

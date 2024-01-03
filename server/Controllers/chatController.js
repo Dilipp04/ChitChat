@@ -58,7 +58,18 @@ const fetchChat = async (req, res) => {
   }
 };
 
+
+const deleteChat = async (req, res) => {
+  try {
+   const cht = await Chat.deleteOne({_id:req.params.chatId})
+   return res.status(201).send("Deleted successfully")
+  } catch (error) {
+    return res.status(400).send(error.message);
+  }
+};
+
 module.exports = {
   accessChat,
   fetchChat,
+  deleteChat
 };

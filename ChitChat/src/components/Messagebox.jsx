@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import SendIcon from '@mui/icons-material/Send';
 import Messageself from './Messageself';
 import Messageother from './Messageother';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { io } from "socket.io-client"
 import useUrl from '../hooks/useUrl';
-
+import DeleteIcon from '@mui/icons-material/Delete';
 const Messagebox = () => {
+    const navigate = useNavigate()
     const URL = useUrl()
     const [socketConnectionStatus, setSocketConnectionStatus] = useState()
     const [content, setContent] = useState("")
@@ -48,6 +49,15 @@ const Messagebox = () => {
         setAllMessagesCopy(json)
         socket.emit("join chat", chatId)
     }
+    const deleteChat = async () => {
+        await fetch(`${URL}/chat/${chatId}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${userdata.token}`,
+            },
+        })
+        navigate("/")
+    }
 
     useEffect(() => {
         socket.emit("setup", userdata._id)
@@ -65,10 +75,10 @@ const Messagebox = () => {
                 setAllMessages([...allMessages], newMessage)
             }
         })
-    }, [allMessages, allMessagesCopy])
+    }, [allMessages, allMessagesCopy, deleteChat])
     useEffect(() => {
         fetchAllMessages()
-    }, [allMessages, chatId, sendMessage])
+    }, [allMessages, chatId, sendMessage, deleteChat])
 
 
     return (
@@ -80,11 +90,14 @@ const Messagebox = () => {
                 <div className="flex-grow my-auto">
                     <h1 className="text-gray-900  title-font text-xl font-semibold">{username}</h1>
                 </div>
+                <div onClick={deleteChat} className='text-rblue hover:text-gray my-auto mx-4'>
+                    <DeleteIcon fontSize='large' />
+                </div>
             </header>
             <main className='grow h-80 overflow-y-scroll scroll-smooth p-3 bg-white flex flex-col-reverse'>
                 {
                     allMessagesCopy.map((message, index) => {
-                        
+
                         const sender = message.sender
                         const self_id = userdata._id
                         if (sender._id === self_id) {

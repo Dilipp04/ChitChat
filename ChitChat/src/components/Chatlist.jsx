@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react'
 import Listitem from './Listitem';
 import { useLocation } from 'react-router-dom';
 import useUrl from '../hooks/useUrl';
-
+import { CircularProgress } from '@mui/material';
 const Chatlist = () => {
     const userdata = JSON.parse(localStorage.getItem("userData"))
     const URL = useUrl()
+    const [loading, setloading] = useState(false)
+
     const [chatlist, setChatlist] = useState([])
     const fetchChats = async () => {
+        setloading(true)
         const response = await fetch(`${URL}/chat/`, {
             method: "GET",
             headers: {
@@ -17,6 +20,7 @@ const Chatlist = () => {
         })
         const json = await response.json()
         setChatlist(json)
+        setloading(false)
     }
     useEffect(() => {
         fetchChats()
@@ -25,12 +29,15 @@ const Chatlist = () => {
     let location = useLocation();
 
     return (
-        <div className={`${location.pathname=="/app"?"flex grow":"hidden"} rounded-lg bg-white shadow-xl rounded-r h-full min-w-36 p-2 md:flex md:grow-0 flex-col`}>
+        <div className={`${location.pathname == "/app" ? "flex grow" : "hidden"} rounded-lg bg-white shadow-xl rounded-r h-full min-w-36 p-2 md:flex md:grow-0 flex-col`}>
             <form>
                 <input type="search" className="shadow focus:ring-red-500 my-2.5 w-full p-5 text-lg text-gray-900  border-gray-300 rounded-2xl bg-lgray" placeholder="Search" required></input>
             </form>
             <div className=" flex flex-col grow h-80 overflow-y-scroll space-y-2 p-2">
-                {chatlist.map((element, i) => {
+                
+                    {loading && (<div className='mx-auto'><CircularProgress color='inherit' size={25} /></div>)}
+
+                {chatlist.length > 0 ? chatlist.map((element, i) => {
                     var chatName = ""
                     var lastMessage = ""
                     element.users.map((user) => {
@@ -45,7 +52,10 @@ const Chatlist = () => {
 
                     })
                     return <Listitem chatId={element._id} key={i} name={chatName} lastMessage={lastMessage} />
-                })}
+                })
+                    :
+                    <div className='text-center font-light text-sm'>No recent chats</div>
+                }
             </div>
         </div>
     )

@@ -20,7 +20,6 @@ const Onlineuseritems = ({ element }) => {
         })
       })
       const json = await response.json()
-      console.log(json)
       navigate(`/app/chat/${json._id}&${username}`)
     }}>
       <div className='w-full py-2  rounded-xl bg-lgray active:bg-zinc-200 flex items-center'>
