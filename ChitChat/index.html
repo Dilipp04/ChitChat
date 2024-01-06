@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-mode="dark">
 
 <head>
   <meta charset="UTF-8" />
@@ -7,27 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ChitChat</title>
   <style>
-    html {
-      height: -webkit-fill-available;
-    }
-
     body {
       height: -webkit-fill-available;
     }
+    #root{
+      height: 100%;
+    }
+
   </style>
 </head>
 
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx">
-  </script>
-  <script>
-    const setHeight = () => {
-      const currentHeight = window.innerHeight;
-      document.body.style.height = `${currentHeight}px`
-    }
-    window.addEventListener("resize", setHeight)
-    setHeight()
   </script>
 </body>
 

@@ -9,7 +9,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { NavLink } from 'react-router-dom'
 
 const Navbar = () => {
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(true);
     const toggleDarkMode = () => {
         if (!isDarkMode) {
             document.documentElement.setAttribute('data-mode', 'dark');
