@@ -4,7 +4,7 @@ const Messageself = ({ props }) => {
     return (
         <div>
             <div className='flex justify-end my-3'>
-                <div className='bg-lgray rounded-3xl p-3 max-w-80'>
+                <div className='bg-lgray dark:bg-darklgray dark:text-white rounded-3xl p-3 max-w-80'>
                     <p>{props.content}</p>
                     <p className='text-gray-400 text-xs float-end'>{props.timeStamp}</p>
                 </div>

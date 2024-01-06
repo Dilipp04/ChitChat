@@ -22,7 +22,7 @@ const Login = () => {
     const submitHandler = async () => {
         setErrorMsg(false)
         if (!data.username || !data.password) {
-
+            setErrorMsg(true)
         }
         else {
             setLoading(true)
@@ -40,22 +40,21 @@ const Login = () => {
                 localStorage.setItem("userData", JSON.stringify(json))
                 setData({ username: "", password: "" })
                 navigate("/app")
-            }else{
+            } else {
                 setErrorMsg(true)
             }
         }
     }
     return (
         <>
-            <div className=' flex align-middle items-center justify-center w-screen h-screen '>
+            <div className=' flex align-middle dark:bg-darklgray  rounded-xl items-center justify-center w-full h-full '>
                 <div className='bg-white w-80 h-auto p-6 px-10 rounded-2xl shadow-xl flex flex-col justify-center space-y-5'>
                     <h1 className='text-2xl text-gray text-center'>Login to ChitChat</h1>
-                    <TextField onChange={handleChange} type='text' name='username' label="Username" variant="outlined" required />
-                    <TextField onChange={handleChange} type='password' name='password' label="Password" variant="outlined" required />
+                    <TextField error={errorMsg} onChange={handleChange} type='text' name='username' label="Username" variant="outlined" required />
+                    <TextField error={errorMsg} onChange={handleChange} type='password' name='password' label="Password" variant="outlined" required />
                     <div className='text-center'>
                         <Button onClick={submitHandler} variant="contained" >Login</Button>
                     </div>
-                    {errorMsg && <p className='text-md text-red-500 text-center font-semibold'>Invalid Credential</p>}
                     <p className='text-md text-gray text-center font-semibold'>New to ChitChat, <a className='text-blue-500 underline' href="/signup">Sign up</a> </p>
                 </div>
             </div>

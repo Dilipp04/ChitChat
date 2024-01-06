@@ -28,15 +28,15 @@ const Onlineusers = () => {
         fetchAllUsers(search)
     }
     return (
-        <div className='grow bg-white border-slate-200 rounded-lg p-2 flex flex-col shadow-lg'>
-            <header className='flex my-2 shadow text-2xl text-gray bg-lgray rounded-2xl p-5 px-8 align-middle content-center'>
+        <div className='grow bg-white dark:bg-darkgray border-slate-200 rounded-lg p-2 flex flex-col shadow-lg'>
+            <header className='flex my-2 shadow text-2xl text-gray dark:bg-darklgray dark:text-white bg-lgray rounded-2xl p-5 px-8 align-middle content-center'>
                 Users
             </header>
             <div className="search">
-                <input onChange={inputHandler} value={search} type="search" className=" focus:ring-red-500 my-1 w-full p-3 text-lg text-gray-900  border-gray-300 rounded-full bg-lgray" placeholder="Search" required></input>
+                <input onChange={inputHandler} value={search} type="search" className=" focus:ring-red-500 my-1 w-full p-4 text-lg text-gray-900 dark:bg-darklgray  border-gray-300 rounded-full bg-lgray" placeholder="Search" required></input>
 
             </div>
-            <main className='grow h-80 overflow-y-scroll p-3 bg-white text-slate-800 flex flex-col space-y-3'>
+            <main className='grow h-80 overflow-y-scroll p-3 rounded dark:bg-darkgray bg-white text-slate-800 flex flex-col space-y-3'>
                 <div className='mx-auto'> {loading && <CircularProgress color='inherit' size={25} />}</div>
                 {users.map((element, i) => {
                     return <Onlineuseritems key={element._id} element={element} />

@@ -9,8 +9,8 @@ const Listitem = (props) => {
 
     return (
         <>
-            <motion.div whileHover={{ scale: 1.1 }} className=' h-14 w-full flex items-center hover:bg-lgray active:bg-zinc-200 rounded-xl p-2' onClick={() => { navigate(`/app/chat/${chatId}&${name}`) }} >
-                <div className="rounded-full bg-profile text-white h-12 w-12 mr-3 flex-col flex text-center justify-center text-2xl font-semibold">
+            <motion.div whileHover={{ scale: 1.1 }} className=' h-16 w-full flex items-center dark:bg-darklgray  light:hover:bg-lgray  active:bg-zinc-200 dark:active:bg-zinc-800 rounded-xl p-3 ' onClick={() => { navigate(`/app/chat/${chatId}&${name}`) }} >
+                <div className="rounded-full bg-profile text-white h-12 w-12 mr-3 flex-col flex text-center justify-center text-2xl font-semibold">  
                     {name[0].toUpperCase()}
                 </div>
                 <div className="flex-grow ">

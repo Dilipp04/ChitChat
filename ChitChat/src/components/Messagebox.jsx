@@ -82,9 +82,9 @@ const Messagebox = () => {
 
 
     return (
-        <div className='grow bg-white border-slate-200 rounded-lg p-2 flex flex-col shadow-lg'>
-            <header className='flex my-2 bg-lgray rounded-2xl py-2 align-middle content-center'>
-                <div className="rounded-full bg-profile text-white h-14 w-14 mx-5 flex-col flex text-center justify-center text-2xl font-semibold">
+        <div className='grow bg-white dark:bg-darkgray border-slate-200 rounded-lg p-2 flex flex-col shadow-lg'>
+            <header className='flex my-2 bg-lgray dark:bg-darklgray dark:text-white rounded-2xl py-2 align-middle content-center'>
+                <div className="rounded-full bg-profile  text-white h-14 w-14 mx-5 flex-col flex text-center justify-center text-2xl font-semibold">
                     {username[0].toUpperCase()}
                 </div>
                 <div className="flex-grow my-auto">
@@ -94,7 +94,7 @@ const Messagebox = () => {
                     <DeleteIcon fontSize='large' />
                 </div>
             </header>
-            <main className='grow h-80 overflow-y-scroll scroll-smooth p-3 bg-white flex flex-col-reverse'>
+            <main className='grow h-80 overflow-y-scroll  rounded-xl scroll-smooth p-3 flex flex-col-reverse'>
                 {
                     allMessagesCopy.map((message, index) => {
 
@@ -115,7 +115,7 @@ const Messagebox = () => {
                     if (event.keyCode === 13) {
                         sendMessage()
                     }
-                }} onChange={inputHandler} value={content} className='mt-3 w-full p-3 text-lg text-gray-900  border-gray-300 rounded-xl bg-lgray ' type="text" placeholder='Type a message' />
+                }} onChange={inputHandler} value={content} className='dark:bg-darklgray dark:text-white mt-3 w-full p-3 text-lg text-gray-900  border-gray-300 rounded-xl bg-lgray ' type="text" placeholder='Type a message' />
                 <div onClick={sendMessage} className='p-3 mt-3 mx-2 rounded-lg bg-rblue active:bg-zinc-200 '>
                     <SendIcon fontSize='medium' />
                 </div>

@@ -29,9 +29,9 @@ const Chatlist = () => {
     let location = useLocation();
 
     return (
-        <div className={`${location.pathname == "/app" ? "flex grow" : "hidden"} rounded-lg bg-white shadow-xl rounded-r h-full min-w-36 p-2 md:flex md:grow-0 flex-col`}>
+        <div className={`${location.pathname == "/app" ? "flex grow" : "hidden"} rounded-lg dark:text-white dark:bg-darkgray bg-white shadow-xl rounded-r h-full min-w-36 p-2 md:flex md:grow-0 flex-col`}>
             <form>
-                <input type="search" className="shadow focus:ring-red-500 my-2.5 w-full p-5 text-lg text-gray-900  border-gray-300 rounded-2xl bg-lgray" placeholder="Search" required></input>
+                <input type="search" className="shadow focus:ring-red-500 my-2.5 w-full p-5 text-lg text-gray-900 dark:bg-darklgray  border-gray-300 rounded-2xl bg-lgray" placeholder="Search" required></input>
             </form>
             <div className=" flex flex-col grow h-80 overflow-y-scroll space-y-2 p-2">
                 

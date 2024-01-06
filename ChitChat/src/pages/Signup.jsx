@@ -31,10 +31,10 @@ const Signup = () => {
         }
     }
     return (<>
-        <div className=' flex align-middle items-center justify-center w-screen h-screen '>
+        <div className=' flex align-middle items-center dark:bg-darklgray justify-center w-full h-full '>
             
-            <div className='bg-white w-80 h-auto p-6 px-10 rounded-2xl shadow-xl flex flex-col justify-center space-y-5 '>
-                <h1 className='text-2xl text-gray text-center'>Register to ChitChat</h1>
+            <div className='bg-white  h-auto p-6 px-10 rounded-2xl shadow-xl flex flex-col justify-center space-y-5 '>
+                <h1 className='text-2xl text-gray  text-center'>Register to ChitChat</h1>
                 <TextField onChange={handleChange} type='text' name='username' label="Username" variant="outlined" />
                 <TextField onChange={handleChange} type='email' name='email' label="Email" variant="outlined" />
                 <TextField onChange={handleChange} type='password' name='password' label="Password" variant="outlined" />

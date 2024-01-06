@@ -12,7 +12,7 @@ function App() {
 
   return (
     <>
-      <div className='flex space-x-2 p-2 rounded-lg h-screen bg-lgray'>
+      <div className='dark flex space-x-2 p-2 h-screen bg-lgray dark:bg-darklgray'>
         <Routes>
           <Route path="/" element={<Login />}></Route>
           <Route path='signup' element={<Signup/>}></Route>
