@@ -26,6 +26,8 @@ const Signup = () => {
             setData({ username: "", email: "", password: "" })
             setLoading(false)
             navigate("/app")
+        }else{
+            setLoading(false)
         }
     }
     return (<>

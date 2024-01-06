@@ -6,6 +6,7 @@ import useUrl from '../hooks/useUrl'
 const Login = () => {
     const URL = useUrl()
     const navigate = useNavigate()
+    const [errorMsg, setErrorMsg] = useState(false)
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState({ username: "", password: "" })
     const handleChange = (e) => {
@@ -19,6 +20,7 @@ const Login = () => {
 
 
     const submitHandler = async () => {
+        setErrorMsg(false)
         if (!data.username || !data.password) {
 
         }
@@ -33,11 +35,13 @@ const Login = () => {
                 }
             })
             const json = await response.json();
+            setLoading(false)
             if (response.ok) {
                 localStorage.setItem("userData", JSON.stringify(json))
                 setData({ username: "", password: "" })
-                setLoading(false)
                 navigate("/app")
+            }else{
+                setErrorMsg(true)
             }
         }
     }
@@ -51,6 +55,7 @@ const Login = () => {
                     <div className='text-center'>
                         <Button onClick={submitHandler} variant="contained" >Login</Button>
                     </div>
+                    {errorMsg && <p className='text-md text-red-500 text-center font-semibold'>Invalid Credential</p>}
                     <p className='text-md text-gray text-center font-semibold'>New to ChitChat, <a className='text-blue-500 underline' href="/signup">Sign up</a> </p>
                 </div>
             </div>
