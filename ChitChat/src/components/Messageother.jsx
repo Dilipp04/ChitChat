@@ -9,7 +9,7 @@ const Messageother = ({ props }) => {
                 </div>
                 <div className='bg-rblue text-white rounded-3xl p-3 max-w-80'>
                     <p>{props.content}</p>
-                    <p className='text-gray-100 text-xs float-end'>{props.timeStamp}</p>
+                    <p className='text-gray-100 text-xs float-end'>{props.timestamp}</p>
                 </div>
             </div>
         </div>

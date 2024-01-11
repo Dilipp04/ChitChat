@@ -11,7 +11,6 @@ import Logout from './pages/Logout'
 function App() {
   const setHeight = () => {
     const currentHeight = window.innerHeight;
-    console.log(currentHeight)
     document.body.style.height = `${currentHeight}px`
   }
   window.addEventListener("resize", setHeight)
@@ -29,7 +28,6 @@ function App() {
             <Route path="/app/users" element={<Onlineusers />} ></Route>
           </Route>
         </Routes>
-
       </div >
     </>
   )
