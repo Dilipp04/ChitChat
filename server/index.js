@@ -16,7 +16,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(express.json());
-app.get("/", (req, res) => { 
+app.get("/", (req, res) => {
   res.send("Get request is sent");
 });
 
@@ -48,10 +48,20 @@ const io = new Server(httpServer, {
   pingTimeout: 60000,
 });
 
+const onlineUsers = new Map();
+
+const getOnlineUserIds = () => Array.from(onlineUsers.keys());
+
 io.on("connection", (socket) => {
   socket.on("setup", (userId) => {
+    if (!userId) return;
+    socket.userId = userId;
+    const userSockets = onlineUsers.get(userId) || new Set();
+    userSockets.add(socket.id);
+    onlineUsers.set(userId, userSockets);
     socket.join(userId);
     socket.emit("connected");
+    io.emit("online users", getOnlineUserIds());
   });
 
   socket.on("join chat", (room) => {
@@ -67,6 +77,19 @@ io.on("connection", (socket) => {
       if (user._id == newMessageStatus.sender._id) return;
       socket.in(user._id).emit("message received", newMessageStatus);
     });
+  });
+
+  socket.on("disconnect", () => {
+    if (socket.userId) {
+      const userSockets = onlineUsers.get(socket.userId);
+      if (userSockets) {
+        userSockets.delete(socket.id);
+        if (userSockets.size === 0) {
+          onlineUsers.delete(socket.userId);
+        }
+      }
+      io.emit("online users", getOnlineUserIds());
+    }
   });
 });
 

@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import './App.css'
 import Messagebox from './components/Messagebox'
 import Home from './pages/Home'
@@ -9,15 +10,24 @@ import { Routes, Route } from "react-router-dom"
 import Logout from './pages/Logout'
 
 function App() {
-  const setHeight = () => {
-    const currentHeight = window.innerHeight;
-    document.body.style.height = `${currentHeight}px`
-  }
-  window.addEventListener("resize", setHeight)
-  setHeight()
+  useEffect(() => {
+    const setHeight = () => {
+      document.body.style.height = `${window.innerHeight}px`
+    }
+
+    const savedTheme = localStorage.getItem("theme")
+    const useDarkTheme = savedTheme === "dark"
+    document.documentElement.classList.toggle("dark", useDarkTheme)
+    document.body.classList.toggle("dark", useDarkTheme)
+    setHeight()
+    window.addEventListener("resize", setHeight)
+
+    return () => window.removeEventListener("resize", setHeight)
+  }, [])
+
   return (
     <>
-      <div className=' dark flex space-x-2 p-2 h-full bg-lgray dark:bg-darklgray'>
+      <div className='flex h-full w-full overflow-hidden bg-[#eef2f7] p-2 text-slate-950 dark:bg-slate-950 dark:text-slate-100 sm:p-3'>
         <Routes>
           <Route path="/" element={<Login />}></Route>
           <Route path='signup' element={<Signup />}></Route>

@@ -9,6 +9,7 @@ const loginController = async (req, res) => {
       _id: user._id,
       username: user.username,
       email: user.email,
+      profilePic: user.profilePic,
       token: generateToken(user._id),
     });
   } else {
@@ -17,7 +18,7 @@ const loginController = async (req, res) => {
 };
 
 const registerController = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, profilePic } = req.body;
   //check all fields
   if (!username || !email || !password) {
     return res.status(400).json({ message: "Missing Credentials" });
@@ -32,11 +33,11 @@ const registerController = async (req, res) => {
   //Username exist check
   const userNameExist = await User.findOne({ username });
   if (userNameExist) {
-    res.status(400).json({ message: "UserName already exist" });
+    return res.status(400).json({ message: "UserName already exist" });
   }
 
   //Create User in db
-  const user = await User.create({ username, email, password });
+  const user = await User.create({ username, email, password, profilePic });
   if (!user) {
     return res.status(400).json({ message: "Registration error" });
   }
@@ -44,6 +45,7 @@ const registerController = async (req, res) => {
     _id: user._id,
     username: user.username,
     email: user.email,
+    profilePic: user.profilePic,
     token: generateToken(user._id),
   });
 };

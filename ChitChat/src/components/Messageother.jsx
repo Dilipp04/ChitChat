@@ -1,15 +1,16 @@
-import React from 'react'
+/* eslint-disable react/prop-types */
+import Avatar from './Avatar'
+
+const formatTime = (value) => value ? new Date(value).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ""
 
 const Messageother = ({ props }) => {
     return (
-        <div>
-            <div className='flex my-3 dark:bg-darkgray'>
-                <div className="rounded-full bg-profile  text-white h-10 w-10 mx-2 flex-col flex text-center justify-center text-xl font-semibold">
-                    {props.sender.username[0].toUpperCase()}
-                </div>
-                <div className='bg-rblue text-white rounded-3xl p-3 max-w-80'>
-                    <p>{props.content}</p>
-                    <p className='text-gray-100 text-xs float-end'>{props.timestamp}</p>
+        <div className='my-2 flex justify-start'>
+            <div className='flex max-w-[82%] items-end gap-2 sm:max-w-[32rem]'>
+                <Avatar name={props.sender.username} src={props.sender.profilePic} size="sm" />
+                <div className='rounded-[1.5rem] rounded-bl-md border border-slate-200 bg-white px-4 py-3 text-slate-950 shadow-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100'>
+                    <p className='break-words text-sm leading-relaxed sm:text-base'>{props.content}</p>
+                    <p className='mt-1 text-right text-[0.7rem] text-slate-500 dark:text-slate-300'>{formatTime(props.createdAt)}</p>
                 </div>
             </div>
         </div>

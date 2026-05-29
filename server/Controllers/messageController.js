@@ -5,7 +5,7 @@ const Message = require("../modals/messageModel");
 const allMessages = async (req, res) => {
   try {
     const message = await Message.find({ chat: req.params.chatId })
-      .populate("sender", "username email")
+      .populate("sender", "username email profilePic")
       .populate("receiver")
       .populate("chat");
     return res.status(200).json(message);
@@ -28,12 +28,12 @@ const sendMessage = async (req, res) => {
 
   try {
     var message = await Message.create(newMessage);
-    message = await message.populate("sender", "username");
+    message = await message.populate("sender", "username profilePic");
     message = await message.populate("chat");
     message = await message.populate("receiver");
     message = await User.populate(message, {
       path: "chat.users",
-      select: "username email",
+      select: "username email profilePic",
     });
 
     await Chat.findByIdAndUpdate(req.body.chatId, { latestMessage: message });

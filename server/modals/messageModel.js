@@ -10,16 +10,17 @@ const messageModel = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    content:{
-      type:String,
+    content: {
+      type: String,
     },
     chat: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Chat",
-    }
-  },{
-    timestamp:true
-  }
+    },
+  },
+  {
+    timestamps: true,
+  },
 );
 
 const Message = mongoose.model("Message", messageModel);

@@ -3,13 +3,88 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Poppins'; /* Give your font a name */
-  src: url('../POPPINS-LIGHT.woff') format('woff'); /* Path to your font file */
+  font-family: "Poppins";
+  src: url("../POPPINS-LIGHT.woff") format("woff");
 }
 
-body{
-  font-family: "Poppins" , sans-serif;
+:root {
+  color-scheme: light;
 }
+
+:root.dark {
+  color-scheme: dark;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(14, 165, 233, 0.18),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(79, 70, 229, 0.2),
+      transparent 22%
+    ),
+    linear-gradient(180deg, #f8fafc, #e8eef7);
+}
+
+body.dark {
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(14, 165, 233, 0.12),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(79, 70, 229, 0.15),
+      transparent 22%
+    ),
+    linear-gradient(180deg, #020617, #111827);
+}
+
+#root {
+  height: 100%;
+}
+
+.bg-login-bg {
+  background:
+    radial-gradient(circle at 16% 18%, rgba(45, 212, 191, 0.2), transparent 28%),
+    radial-gradient(
+      circle at 84% 78%,
+      rgba(99, 102, 241, 0.22),
+      transparent 34%
+    ),
+    linear-gradient(180deg, #0f172a, #020617);
+}
+
+.glass-card {
+  background: #ffffff;
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.18);
+  backdrop-filter: blur(18px);
+}
+
+.dark .glass-card {
+  background: #ffffff;
+}
+
+.status-badge {
+  box-shadow: 0 0 0 2px #ffffff;
+}
+
 ::-webkit-scrollbar {
-    width: 0px;
-  }
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}

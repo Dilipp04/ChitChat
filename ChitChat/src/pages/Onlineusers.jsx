@@ -1,50 +1,65 @@
-import React, { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Onlineuseritems from '../components/Onlineuseritems'
 import useUrl from '../hooks/useUrl'
 import { CircularProgress } from '@mui/material'
+import { io } from "socket.io-client"
 const Onlineusers = () => {
     const URL = useUrl()
     const [users, setUsers] = useState([])
     const [search, setSearch] = useState("")
     const userdata = JSON.parse(localStorage.getItem("userData"))
     const [loading, setloading] = useState(false)
-    const fetchAllUsers = async (keyword = "") => {
+    const [onlineUsers, setOnlineUsers] = useState([])
+    const fetchAllUsers = useCallback(async (keyword = "") => {
         setloading(true)
-        const response = await fetch(`${URL}/user/fetchallusers?search=${keyword}`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${userdata.token}`
-            }
-        })
-        const json = await response.json();
-        setUsers(json)
-        setloading(false)
-    }
+        try {
+            const response = await fetch(`${URL}/user/fetchallusers?search=${keyword}`, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${userdata.token}`
+                }
+            })
+            const json = await response.json();
+            setUsers(Array.isArray(json) ? json : [])
+        } finally {
+            setloading(false)
+        }
+    }, [URL, userdata.token])
     useEffect(() => {
         fetchAllUsers()
-    }, [])
+    }, [fetchAllUsers])
+    useEffect(() => {
+        const socket = io(URL)
+        socket.emit("setup", userdata._id)
+        socket.on("online users", setOnlineUsers)
+
+        return () => socket.disconnect()
+    }, [URL, userdata._id])
     const inputHandler = (e) => {
-        setSearch(e.target.value)
-        fetchAllUsers(search)
+        const value = e.target.value
+        setSearch(value)
+        fetchAllUsers(value)
     }
     return (
-        <div className='grow bg-white dark:bg-darkgray border-slate-200 rounded-lg p-2 flex flex-col shadow-lg'>
-            <header className='flex my-2 shadow text-2xl text-gray dark:bg-darklgray dark:text-white bg-lgray rounded-2xl p-5 px-8 align-middle content-center'>
-                Users
+        <section className='ml-2 flex min-w-0 grow flex-col rounded-3xl border border-slate-200 bg-white p-4 text-slate-950 shadow-xl shadow-slate-200/70 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:shadow-black/20'>
+            <header className='mb-4 rounded-3xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-800'>
+                <p className='text-xs font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-400'>Directory</p>
+                <h1 className='mt-1 text-2xl font-semibold text-slate-950 dark:text-white'>Find people</h1>
             </header>
-            <div className="search">
-                <input onChange={inputHandler} value={search} type="search" className=" focus:ring-red-500 my-1 w-full p-4 text-lg text-gray-900 dark:bg-darklgray  border-gray-300 rounded-full bg-lgray" placeholder="Search" required></input>
+            <div>
+                <input onChange={inputHandler} value={search} type="search" className="mb-4 w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-500 focus:border-brand-600 focus:bg-white focus:ring-4 focus:ring-blue-500/10 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-400 dark:focus:border-brand-400" placeholder="Search users" required></input>
 
             </div>
-            <main className='grow h-80 overflow-y-scroll p-3 rounded dark:bg-darkgray bg-white text-slate-800 flex flex-col space-y-3'>
+            <main className='flex h-80 grow flex-col space-y-3 overflow-y-auto rounded-3xl bg-slate-50 p-3 text-slate-900 dark:bg-slate-950 dark:text-slate-100'>
                 <div className='mx-auto'> {loading && <CircularProgress color='inherit' size={25} />}</div>
-                {users.map((element, i) => {
-                    return <Onlineuseritems key={element._id} element={element} />
+                {!loading && users.length === 0 && <div className='rounded-2xl border border-dashed border-slate-300 p-6 text-center text-sm text-slate-600 dark:border-slate-700 dark:text-slate-300'>No users found</div>}
+                {users.map((element) => {
+                    return <Onlineuseritems key={element._id} element={element} isOnline={onlineUsers.includes(element._id)} />
                 })}
 
             </main>
 
-        </div>
+        </section>
     )
 }
 

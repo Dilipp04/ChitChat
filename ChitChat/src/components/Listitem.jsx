@@ -1,25 +1,20 @@
-import React from 'react'
+/* eslint-disable react/prop-types */
 import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion"
+import Avatar from './Avatar';
 
-const Listitem = (props) => {
+const Listitem = ({ name, lastMessage, timeStamp, chatId, isOnline, profilePic }) => {
     const navigate = useNavigate()
 
-    const { name, lastMessage, timeStamp, chatId } = props
-
     return (
-        <>
-            <motion.div whileHover={{ scale: 1.1 }} className=' h-16 w-full flex items-center dark:bg-darklgray  light:hover:bg-lgray  active:bg-zinc-200 dark:active:bg-zinc-800 rounded-xl p-3 ' onClick={() => { navigate(`/app/chat/${chatId}&${name}`) }} >
-                <div className="rounded-full bg-profile text-white h-12 w-12 mr-3 flex-col flex text-center justify-center text-2xl font-semibold">  
-                    {name[0].toUpperCase()}
-                </div>
-                <div className="flex-grow ">
-                    <h1 className=" text-gray-900 title-font text-lg font-semibold">{name}</h1>
-                    <p className="text-gray-300 text-xs">{lastMessage}</p>
-                </div>
-                <p className='text-xs text-gray-400 self-center'>{timeStamp}</p>
-            </motion.div>
-        </>
+        <motion.button whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} onClick={() => { navigate(`/app/chat/${chatId}&${encodeURIComponent(name)}`) }} className='flex w-full items-center gap-4 rounded-3xl border border-slate-200 bg-white px-4 py-4 text-left shadow-sm transition duration-300 hover:border-brand-600 hover:shadow-lg hover:shadow-slate-200/80 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-brand-400 dark:hover:shadow-black/20'>
+            <Avatar name={name} src={profilePic} isOnline={isOnline} />
+            <div className='min-w-0 flex-grow'>
+                <h1 className="truncate text-base font-semibold text-slate-900 dark:text-white">{name}</h1>
+                <p className="truncate text-sm text-slate-600 dark:text-slate-300">{lastMessage}</p>
+            </div>
+            <p className='shrink-0 text-xs text-slate-500 dark:text-slate-300'>{timeStamp}</p>
+        </motion.button>
     )
 }
 

@@ -18,8 +18,8 @@ const chatModel = mongoose.Schema(
     },
   },
   {
-    timeStamp: true,
-  }
+    timestamps: true,
+  },
 );
 
 chatModel.pre(
@@ -27,16 +27,15 @@ chatModel.pre(
   { document: false, query: true },
   async function (next) {
     try {
-      
       const chatId = this.getFilter()._id;
       const result = await Message.deleteMany({ chat: chatId });
-      if(result){
-        next()
+      if (result) {
+        next();
       }
     } catch (error) {
-      return res.status(500).send("Deletion error")
+      return res.status(500).send("Deletion error");
     }
-  }
+  },
 );
 
 const Chat = mongoose.model("Chat", chatModel);

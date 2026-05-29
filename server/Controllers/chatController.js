@@ -16,7 +16,7 @@ const accessChat = async (req, res) => {
     .populate("latestMessage");
   isChat = await User.populate(isChat, {
     path: "latestMessage.sender",
-    select: "username email",
+    select: "username email profilePic",
   });
 
   if (isChat.length > 0) {
@@ -30,7 +30,7 @@ const accessChat = async (req, res) => {
       const createdChat = await Chat.create(chatData);
       const FullChat = await Chat.findOne({ _id: createdChat._id }).populate(
         "users",
-        "-password"
+        "-password",
       );
       return res.status(200).json(FullChat);
     } catch (error) {
@@ -49,7 +49,7 @@ const fetchChat = async (req, res) => {
       .then(async (results) => {
         results = await User.populate(results, {
           path: "latestMessage.sender",
-          select: "username email",
+          select: "username email profilePic",
         });
         return res.status(200).send(results);
       });
@@ -58,11 +58,10 @@ const fetchChat = async (req, res) => {
   }
 };
 
-
 const deleteChat = async (req, res) => {
   try {
-   const cht = await Chat.deleteOne({_id:req.params.chatId})
-   return res.status(201).send("Deleted successfully")
+    const cht = await Chat.deleteOne({ _id: req.params.chatId });
+    return res.status(201).send("Deleted successfully");
   } catch (error) {
     return res.status(400).send(error.message);
   }
@@ -71,5 +70,5 @@ const deleteChat = async (req, res) => {
 module.exports = {
   accessChat,
   fetchChat,
-  deleteChat
+  deleteChat,
 };
