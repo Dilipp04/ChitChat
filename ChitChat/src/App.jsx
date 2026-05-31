@@ -14,11 +14,6 @@ function App() {
     const setHeight = () => {
       document.body.style.height = `${window.innerHeight}px`
     }
-
-    const savedTheme = localStorage.getItem("theme")
-    const useDarkTheme = savedTheme === "dark"
-    document.documentElement.classList.toggle("dark", useDarkTheme)
-    document.body.classList.toggle("dark", useDarkTheme)
     setHeight()
     window.addEventListener("resize", setHeight)
 

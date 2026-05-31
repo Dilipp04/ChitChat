@@ -11,14 +11,15 @@ import { NavLink } from 'react-router-dom'
 const Navbar = () => {
     const [isDarkMode, setIsDarkMode] = useState(() => localStorage.getItem("theme") === "dark");
 
-    useEffect(() => {
-        document.documentElement.classList.toggle('dark', isDarkMode)
-        document.body.classList.toggle('dark', isDarkMode)
-        localStorage.setItem("theme", isDarkMode ? "dark" : "light")
-    }, [isDarkMode])
-
     const toggleDarkMode = () => {
-        setIsDarkMode((prev) => !prev)
+        if (!isDarkMode) {
+            document.documentElement.setAttribute('data-mode', 'dark');
+            setIsDarkMode((prev) => !prev)
+        } else {
+            document.documentElement.removeAttribute('data-mode');
+            setIsDarkMode((prev) => !prev)
+
+        }
     };
 
     const navClass = ({ isActive }) =>
@@ -47,8 +48,8 @@ const Navbar = () => {
                             <PeopleAltIcon />
                         </NavLink>
                     </li>
-                    <li onClick={toggleDarkMode}>
-                        <button className="flex h-11 w-11 items-center justify-center rounded-2xl text-slate-700 transition-all duration-200 hover:bg-slate-100 hover:text-brand-700 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-white" title="Toggle theme">
+                    <li >
+                        <button onClick={toggleDarkMode} className="flex h-11 w-11 items-center justify-center rounded-2xl text-slate-700 transition-all duration-200 hover:bg-slate-100 hover:text-brand-700 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-white" title="Toggle theme">
                             {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
                         </button>
                     </li>

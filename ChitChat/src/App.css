@@ -53,7 +53,11 @@ body.dark {
 
 .bg-login-bg {
   background:
-    radial-gradient(circle at 16% 18%, rgba(45, 212, 191, 0.2), transparent 28%),
+    radial-gradient(
+      circle at 16% 18%,
+      rgba(45, 212, 191, 0.2),
+      transparent 28%
+    ),
     radial-gradient(
       circle at 84% 78%,
       rgba(99, 102, 241, 0.22),
@@ -69,7 +73,7 @@ body.dark {
 }
 
 .dark .glass-card {
-  background: #ffffff;
+  background: rgba(15, 23, 42, 0.5);
 }
 
 .status-badge {
